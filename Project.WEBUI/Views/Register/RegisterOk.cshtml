@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RegisterOk</title>
+    <link href="~/OuterTools/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/OuterTools/js/jquery.js"></script>
+    <script src="~/OuterTools/js/bootstrap.js"></script>
+</head>
+<body>
+    <div> 
+        <h2>Tebrikler kayıt oldunuz...Lutfen email adresinize gönderdigimiz aktivasyon linkine tıklayarak hesabınızı aktif hale getiriniz</h2>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+
+        setTimeout(function () {
+            window.location = "/Register/RegisterNow";
+        },5000)
+
+
+    })
+</script>

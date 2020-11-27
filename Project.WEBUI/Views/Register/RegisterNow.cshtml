@@ -1,0 +1,83 @@
+﻿@model AppUserVM
+
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+   
+    <!-- Bootstrap core CSS -->
+    <link href="~/OuterTools/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/OuterTools/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/OuterTools/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/OuterTools/css/style.css" rel="stylesheet">
+    <link href="~/OuterTools/css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="login-body">
+
+    <div class="container">
+       
+        @using (Html.BeginForm("RegisterNow","Register",FormMethod.Post,new { @class="form-signin"}))
+        {
+            if (ViewBag.ZatenVar != null)
+            {
+                <h2>@ViewBag.ZatenVar</h2>
+            }
+
+            <h2 class="form-signin-heading"> Uye olunuz  </h2>
+            <div class="login-wrap">
+
+                @Html.TextBoxFor(x => x.AppUser.UserName, new { @class = "form-control", placeholder = "Kullanıcı ismi giriniz" })
+
+                @Html.PasswordFor(x => x.AppUser.Password, new { @class = "form-control", placeholder = "Sifre Giriniz" })
+
+                @Html.TextBoxFor(x => x.AppUser.Email, new { @class = "form-control", placeholder = "Email giriniz" })
+
+                @Html.TextBoxFor(x => x.Profile.FirstName, new { @class = "form-control", placeholder = "İsminizi Giriniz" })
+                @Html.TextBoxFor(x => x.Profile.LastName, new { @class = "form-control", placeholder = "SoyIsminizi Giriniz" })
+
+                Adres giriniz:<br />
+                @Html.TextAreaFor(x => x.Profile.Address, new { @class = "form-control", @style = "resize:none" })
+
+                <br />
+                <button class="btn btn-lg btn-login btn-block" type="submit">Sign In</button>
+
+                <div class="registration">
+                  
+                    @Html.ActionLink("Giris yap","Login","Home")
+              
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="~/OuterTools/js/jquery.js"></script>
+    <script src="~/OuterTools/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+

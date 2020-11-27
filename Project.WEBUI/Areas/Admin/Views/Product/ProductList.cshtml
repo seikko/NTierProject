@@ -1,0 +1,115 @@
+﻿
+@model ProductVM
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>Urun Eklemek icin @Html.ActionLink("Tıklayınız","AddProduct")</h3>
+<div class="panel-body">
+    <div class="adv-table">
+        <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+            <thead>
+                <tr>
+                    <th>Ürün İsmi</th>
+                    <th>Ürün Fiyatı</th>
+                    <th>Ürün Stok</th>
+                    <th>Ürün Kategorisi</th>
+                    <th>Ürün Resmi</th>
+                    <th class="hidden-phone">Durum</th>
+                    <th class="hidden-phone">Sil</th>
+                    <th class="hidden-phone">Guncelle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Product item in Model.Products)
+                {
+                    <tr class="gradeX">
+                        <td>@item.ProductName</td>
+                        <td>@item.UnitPrice</td>
+                        <td>
+                            @item.UnitsInStock
+                        </td>
+                        @if (item.Category == null)
+                        {
+                            <td>Kategori belirtilmemiş</td>
+                        }
+                        else
+                        {
+                            <td>@item.Category.CategoryName</td>
+                        }
+                        <td>  <img width="30" height="30" title="@item.ProductName" src="@item.ImagePath" /> </td>
+                        <td class="hidden-phone">@item.Status</td>
+                       
+                        <td class="center hidden-phone">@Html.ActionLink("Sil", "DeleteCategory", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Guncelle", "UpdateCategory", new { id = item.ID }, new { @class = "btn btn-warning" })</td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+        /* Formating function for row details */
+        function fnFormatDetails(oTable, nTr) {
+            var aData = oTable.fnGetData(nTr);
+            var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+            sOut += '<tr><td>Rendering engine:</td><td> <a title="Detay" href="/Admin/Category/CategoryDetail/' + aData[1] + '">' + aData[2] + ' detay </a>  </td></tr>';
+            sOut += '<tr><td>Link to source:</td><td><a title="Icerik" href="/Admin/Product/ProductList/'+aData[1]+'"> '+aData[2]+' </a></td></tr>';
+            sOut += '<tr><td>Extra info:</td><td> <a href="/Admin/Category/AddCategory" class="btn btn-primary"> Kategori ekle </a>  </td></tr>';
+            sOut += '</table>';
+
+            return sOut;
+        }
+
+        $(document).ready(function () {
+            /*
+             * Insert a 'details' column to the table
+             */
+            var nCloneTh = document.createElement('th');
+            var nCloneTd = document.createElement('td');
+            nCloneTd.innerHTML = '<img src="/OuterTools/assets/advanced-datatable/examples/examples_support/details_open.png">';
+            nCloneTd.className = "center";
+
+            $('#hidden-table-info thead tr').each(function () {
+                this.insertBefore(nCloneTh, this.childNodes[0]);
+            });
+
+            $('#hidden-table-info tbody tr').each(function () {
+                this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+            });
+
+            /*
+             * Initialse DataTables, with no sorting on the 'details' column
+             */
+            var oTable = $('#hidden-table-info').dataTable({
+                "aoColumnDefs": [
+                    { "bSortable": false, "aTargets": [0] }
+                ],
+                "aaSorting": [[1, 'asc']]
+            });
+
+            /* Add event listener for opening and closing details
+             * Note that the indicator for showing which row is open is not controlled by DataTables,
+             * rather it is done here
+             */
+            $('#hidden-table-info tbody td img').live('click', function () {
+                var nTr = $(this).parents('tr')[0];
+                if (oTable.fnIsOpen(nTr)) {
+                    /* This row is already open - close it */
+                    this.src = "/OuterTools/assets/advanced-datatable/examples/examples_support/details_open.png";
+                    oTable.fnClose(nTr);
+                }
+                else {
+                    /* Open this row */
+                    this.src = "/OuterTools/assets/advanced-datatable/examples/examples_support/details_close.png";
+                    oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+                }
+            });
+        });
+</script>

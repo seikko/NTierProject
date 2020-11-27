@@ -1,0 +1,59 @@
+﻿@model CategoryVM
+@{
+    ViewBag.Title = "UpdateCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .genislik {
+        width: 300px;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x=>x.Category.ID)
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Kategori Ekleme Sayfası
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label"> Isim </label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(x => x.Category.CategoryName, new { @class = "form-control genislik", placeholder = "Kategori İsmini Guncelleyiniz" })
+                        </div>
+                    </div>
+
+                    <br /> <br />
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label"> Acıklama </label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(x => x.Category.Description, new { @class = "form-control genislik", placeholder = "Kategori Acıklaması Guncelleyiniz" })
+                        </div>
+                    </div>
+
+                    <br /> <br />
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label"> Ekle </label>
+                        <div class="col-sm-10">
+                            <button class="btn btn-primary">
+                                Kategori Güncelle
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </section>
+        </div>
+    </div>
+}
+
